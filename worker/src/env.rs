@@ -1,3 +1,4 @@
+use crate::consn::ConsnModel;
 #[cfg(feature = "d1")]
 use crate::d1::D1Database;
 use crate::error::Error;
@@ -77,6 +78,11 @@ impl Env {
     /// Access a D1 Database by the binding name configured in your wrangler.toml file.
     #[cfg(feature = "d1")]
     pub fn d1(&self, binding: &str) -> Result<D1Database> {
+        self.get_binding(binding)
+    }
+
+    /// Access a Constellation Model by the binding name configured in your wrangler.toml file.
+    pub fn consn(&self, binding: &str) -> Result<ConsnModel> {
         self.get_binding(binding)
     }
 }

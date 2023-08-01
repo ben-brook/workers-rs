@@ -111,6 +111,11 @@ impl<D> RouteContext<D> {
     pub fn d1(&self, binding: &str) -> Result<crate::D1Database> {
         self.env.d1(binding)
     }
+
+    /// Access a Constellation Model by the binding name configured in your wrangler.toml file.
+    pub fn consn(&self, binding: &str) -> Result<crate::ConsnModel> {
+        self.env.consn(binding)
+    }
 }
 
 impl<'a> Router<'a, ()> {

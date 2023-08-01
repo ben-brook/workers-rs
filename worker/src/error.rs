@@ -19,6 +19,7 @@ pub enum Error {
     SerdeWasmBindgenError(serde_wasm_bindgen::Error),
     #[cfg(feature = "d1")]
     D1(crate::d1::D1Error),
+    Consn(crate::consn::ConsnError),
 }
 
 impl From<worker_kv::KvError> for Error {
@@ -48,6 +49,12 @@ impl From<crate::d1::D1Error> for Error {
     }
 }
 
+impl From<crate::consn::ConsnError> for Error {
+    fn from(e: crate::consn::ConsnError) -> Self {
+        Self::Consn(e)
+    }
+}
+
 impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
@@ -67,6 +74,7 @@ impl std::fmt::Display for Error {
             Error::SerdeWasmBindgenError(e) => write!(f, "Serde Error: {e}"),
             #[cfg(feature = "d1")]
             Error::D1(e) => write!(f, "D1: {e:#?}"),
+            Error::Consn(e) => write!(f, "Consn: {e:#?}"),
         }
     }
 }
