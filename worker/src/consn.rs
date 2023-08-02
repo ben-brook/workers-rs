@@ -10,7 +10,7 @@ use crate::env::EnvBinding;
 pub use serde_wasm_bindgen;
 
 // A Constellation Model.
-pub struct ConsnModel;
+pub struct ConsnModel(JsValue);
 
 impl EnvBinding for ConsnModel {
     const TYPE_NAME: &'static str = "ConsnModel";
@@ -18,11 +18,11 @@ impl EnvBinding for ConsnModel {
 
 impl JsCast for ConsnModel {
     fn instanceof(val: &JsValue) -> bool {
-        val.is_object()
+        val.is_instance_of::<JsValue>()
     }
 
     fn unchecked_from_js(val: JsValue) -> Self {
-        Self
+        Self(val.into())
     }
 
     fn unchecked_from_js_ref(val: &JsValue) -> &Self {
@@ -32,7 +32,7 @@ impl JsCast for ConsnModel {
 
 impl From<ConsnModel> for JsValue {
     fn from(model: ConsnModel) -> Self {
-        JsValue::from({})
+        JsValue::from(model.0)
     }
 }
 
@@ -42,8 +42,8 @@ impl AsRef<JsValue> for ConsnModel {
     }
 }
 
-impl From<ConsnModelSys> for ConsnModel {
-    fn from(inner: ConsnModelSys) -> Self {
+impl From<JsValue> for ConsnModel {
+    fn from(inner: JsValue) -> Self {
         Self(inner)
     }
 }
