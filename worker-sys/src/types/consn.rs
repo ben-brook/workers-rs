@@ -1,5 +1,7 @@
 use wasm_bindgen::prelude::*;
 
+use js_sys::Promise;
+
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends=::js_sys::Object, js_name=Tensor)]
@@ -18,5 +20,5 @@ extern "C" {
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen]
-    pub async fn run(binding: JsValue, modelId: &str, inputs: Vec<Tensor>) -> JsValue;
+    pub fn run(binding: JsValue, modelId: &str, inputs: Vec<Tensor>) -> Promise;
 }
