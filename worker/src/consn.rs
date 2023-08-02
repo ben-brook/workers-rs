@@ -4,6 +4,7 @@ use std::result::Result as StdResult;
 
 use js_sys::JsString;
 use wasm_bindgen::{JsCast, JsValue};
+pub use worker_sys::types::run;
 
 use crate::env::EnvBinding;
 use crate::Result;
