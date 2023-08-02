@@ -6,6 +6,7 @@ use js_sys::JsString;
 use wasm_bindgen::{JsCast, JsValue};
 
 use crate::env::EnvBinding;
+use crate::Result;
 
 pub use serde_wasm_bindgen;
 
@@ -14,6 +15,21 @@ pub struct ConsnModel(JsValue);
 
 impl EnvBinding for ConsnModel {
     const TYPE_NAME: &'static str = "ConsnModel";
+
+    // Workaround for Miniflare D1 Beta
+    fn get(val: JsValue) -> Result<Self> {
+        let obj = js_sys::Object::from(val);
+        if obj.constructor().name() == Self::TYPE_NAME || obj.constructor().name() == "Fetcher" {
+            Ok(obj.unchecked_into())
+        } else {
+            Err(format!(
+                "Binding cannot be cast to the type {} from {}",
+                Self::TYPE_NAME,
+                obj.constructor().name()
+            )
+            .into())
+        }
+    }
 }
 
 impl JsCast for ConsnModel {
