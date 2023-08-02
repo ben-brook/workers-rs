@@ -17,7 +17,6 @@ pub struct ConsnModel(JsValue);
 impl EnvBinding for ConsnModel {
     const TYPE_NAME: &'static str = "ConsnModel";
 
-    // Workaround for Miniflare D1 Beta
     fn get(val: JsValue) -> Result<Self> {
         let obj = js_sys::Object::from(val);
         if obj.constructor().name() == Self::TYPE_NAME || obj.constructor().name() == "Fetcher" {

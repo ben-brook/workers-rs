@@ -18,5 +18,5 @@ extern "C" {
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen]
-    pub fn run(binding: JsValue, modelId: &str, inputs: Vec<Tensor>) -> JsValue;
+    pub async fn run(binding: JsValue, modelId: &str, inputs: Vec<Tensor>) -> JsValue;
 }
