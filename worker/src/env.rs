@@ -83,6 +83,7 @@ impl Env {
 
     /// Access a Constellation Model by the binding name configured in your wrangler.toml file.
     pub fn consn(&self, binding: &str) -> Result<ConsnModel> {
+        crate::console_log!("before test");
         self.get_binding(binding)
     }
 }
@@ -92,6 +93,7 @@ pub trait EnvBinding: Sized + JsCast {
 
     fn get(val: JsValue) -> Result<Self> {
         let obj = Object::from(val);
+        console_log!(format!("object name is {}", object.constructor().name()));
         if obj.constructor().name() == Self::TYPE_NAME {
             Ok(obj.unchecked_into())
         } else {
