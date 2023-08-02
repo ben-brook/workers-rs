@@ -93,7 +93,7 @@ pub trait EnvBinding: Sized + JsCast {
 
     fn get(val: JsValue) -> Result<Self> {
         let obj = Object::from(val);
-        console_log!(format!("object name is {}", object.constructor().name()));
+        crate::console_log!(format!("object name is {}", object.constructor().name()));
         if obj.constructor().name() == Self::TYPE_NAME {
             Ok(obj.unchecked_into())
         } else {
